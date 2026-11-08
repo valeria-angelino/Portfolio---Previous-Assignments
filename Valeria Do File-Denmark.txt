@@ -1,4 +1,4 @@
-cd"C:\Users\angel\OneDrive\Desktop\School\EOSE09\Lab Paper"
+cd"C:EOSE09\Lab Paper"
  
 use regional_dataset, clear
 
