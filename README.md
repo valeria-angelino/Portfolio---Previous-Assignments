@@ -10,7 +10,7 @@ This repository contains a selection of data analysis projects completed between
 
 **Date:** August 2025
 
-**Description:** This project follows EDA, and uses a logistic regression model to find whether there were any key factors that influenced survival during the RMS Titanic wreck. 
+**Description:** This project uses a logistic regression model to find whether any key factors influenced survival during the RMS Titanic wreck. 
 
 **Code File:** Titanic_R_code.r
 
