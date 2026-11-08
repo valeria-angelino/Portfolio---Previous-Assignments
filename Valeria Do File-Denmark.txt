@@ -1,0 +1,253 @@
+cd"C:\Users\angel\OneDrive\Desktop\School\EOSE09\Lab Paper"
+ 
+use regional_dataset, clear
+
+keep if country=="Denmark"
+
+list region if year == 1900
+
+//////////////////// Regional GDP per capita per region plot
+	
+twoway ///
+    (line regional_gdp_cap_1990 year if region=="Southern Denmark", lcolor(lavender)) ///
+    (scatter regional_gdp_cap_1990 year if region=="Southern Denmark", mcolor(lavender) msymbol(O) msize(vsmall)) ///
+    (line regional_gdp_cap_1990 year if region=="Sjælland", lcolor(midblue)) ///
+    (scatter regional_gdp_cap_1990 year if region=="Sjælland", mcolor(midblue) msymbol(O) msize(vsmall)) ///
+    (line regional_gdp_cap_1990 year if region=="Hovedstaden", lcolor(sienna)) ///
+    (scatter regional_gdp_cap_1990 year if region=="Hovedstaden", mcolor(sienna) msymbol(O) msize(vsmall)) ///
+    (line regional_gdp_cap_1990 year if region=="Nordjylland", lcolor(orange)) ///
+    (scatter regional_gdp_cap_1990 year if region=="Nordjylland", mcolor(orange) msymbol(O) msize(vsmall)) ///
+    (line regional_gdp_cap_1990 year if region=="Midtjylland", lcolor(midgreen)) ///
+    (scatter regional_gdp_cap_1990 year if region=="Midtjylland", mcolor(midgreen) msymbol(O) msize(vsmall)), ///
+    legend(order(1 "Southern Denmark" 3 "Sjælland" 5 "Hovedstaden" 7 "Nordjylland" 9 "Midtjylland") size(vsmall)) ///
+    title("Regional GDP per Capita") ///
+	subtitle("1900-2015") ///
+    xlabel(1900(10)2015, labsize(small)) ///
+    ylabel(0(5000)40000, labsize(small)) ///
+    xtitle("Year", size(small)) ///
+    ytitle("GDP per capita in 1990 international dollars", size(small)) ///
+	note(Source: Rosés-Wolf (2020), size(vsmall) position(7))
+	
+graph export GDPovertime.png, replace width(2000)
+	
+////////////////////////////// Agriculture, services & Industry
+
+tabstat employment_share_agriculture if year == 1950, stats(min max mean)
+tabstat employment_share_agriculture if year == 1960, stats(min max mean)
+tabstat employment_share_agriculture if year == 1970, stats(min max mean)
+
+spmap employment_share_agriculture using "nutscoord.dta" if year == 1950, id(_ID) fcolor(Reds) legstyle(2) ///
+	title("1950", size(large)) ///
+    osize(0.02 ..) ocolor(white ..) ///
+    clmethod(custom) clbreaks(0 (0.1) .50) ///
+    legend(pos(2) size(small) rowgap(1.5) ///
+    label(6 ">40%") label(5 "30-40%") ///
+    label(4 "20-30%") label(3 "10-20%") label(2 "<10%") label(1 "No Data")) ///
+    ndfcolor(gray) ndocolor(white ..) ndsize(0.02 ..) ///
+	name(Agricultureshare_1950, replace)	
+	
+	spmap employment_share_agriculture using "nutscoord.dta" if year == 1960, id(_ID) fcolor(Reds) legstyle(2) ///
+	title("1960", size(large)) ///
+    osize(0.02 ..) ocolor(white ..) ///
+    clmethod(custom) clbreaks(0 (0.1) .5) ///
+    legend(pos(2) size(small) rowgap(1.5) ///
+    label(6 ">40%") label(5 "30-40%") ///
+    label(4 "20-30%") label(3 "10-20%") label(2 "<10%") label(1 "No Data")) ///
+    ndfcolor(gray) ndocolor(white ..) ndsize(0.02 ..) ///
+	name(Agricultureshare_1960, replace)
+	
+spmap employment_share_agriculture using "nutscoord.dta" if year == 1970, id(_ID) fcolor(Reds) legstyle(2) ///
+    title("1970", size(large)) ///
+    osize(0.02 ..) ocolor(white ..) ///
+    clmethod(custom) clbreaks(0 (0.1) .5) ///
+    legend(pos(2) size(small) rowgap(1.5) ///
+    label(6 ">40%") label(5 "30-40%") ///
+    label(4 "20-30%") label(3 "10-20%") label(2 "<10%") label(1 "No Data")) ///
+    ndfcolor(gray) ndocolor(white ..) ndsize(0.02 ..) ///
+	name(Agricultureshare_1970, replace)
+
+tabstat employment_share_industry if year == 1950, stats(min max mean)
+tabstat employment_share_industry if year == 1960, stats(min max mean)
+tabstat employment_share_industry if year == 1970, stats(min max mean)
+	
+spmap employment_share_industry if year == 1950 using "nutscoord.dta", id(_ID) ///
+    fcolor(Blues) legstyle(2) ///
+    osize(0.02 ..) ocolor(white ..) ///
+    clmethod(custom) clbreaks(0.24 0.27 0.30 0.35 0.45) ///
+    legend(pos(2) size(small) rowgap(1.5) ///
+    label(5 ">35%") label(4 "30-35%") label(3 "27-30%") ///
+    label(2 "<27%") label(1 "No Data")) ///
+    ndfcolor(gray) ndocolor(black ..) ndsize(0.02 ..) ///
+    name(IndustryShare_1950, replace)
+	
+spmap employment_share_industry if year == 1960 using "nutscoord.dta", id(_ID) ///
+    fcolor(Blues) legstyle(2) ///
+    osize(0.02 ..) ocolor(white ..) ///
+    clmethod(custom) clbreaks(0.34 0.36 0.38 0.43 0.46) ///
+    legend(pos(2) size(small) rowgap(1.5) ///
+    label(5 ">43%") label(4 "38-43%") label(3 "36-38%") ///
+    label(2 "<36%") label(1 "No Data")) ///
+    ndfcolor(gray) ndocolor(black ..) ndsize(0.02 ..) ///
+    name(IndustryShare_1960, replace)
+
+spmap employment_share_industry if year == 1970 using "nutscoord.dta", id(_ID) ///
+    fcolor(Blues) legstyle(2) ///
+    osize(0.02 ..) ocolor(white ..) ///
+    clmethod(custom) clbreaks(0.37 0.38 0.39 0.40 0.42) ///
+    legend(pos(2) size(small) rowgap(1.5) ///
+    label(5 ">40%") label(4 "39-40%") label(3 "38-39%") ///
+    label(2 "<38%") label(1 "No Data")) ///
+    ndfcolor(gray) ndocolor(black ..) ndsize(0.02 ..) ///
+    name(IndustryShare_1970, replace)
+
+tabstat employment_share_services if year == 1950, stats(min max mean)
+tabstat employment_share_services if year == 1960, stats(min max mean)
+tabstat employment_share_services if year == 1970, stats(min max mean)
+
+	spmap employment_share_services using "nutscoord.dta" if year == 1950, id(_ID) fcolor(Oranges) legstyle(2) ///
+    osize(0.02 ..) ocolor(white ..) ///
+    clmethod(custom) clbreaks(0.28 0.32 0.36 0.40 0.44 0.52) ///
+    legend(pos(2) size(small) rowgap(1.5) ///
+    label(6 ">44%") label(5 "40-44%") label(4 "36-40%") label(3 "32-36%") ///
+    label(2 "<32%") label(1 "No Data")) ///
+    ndfcolor(gray) ndocolor(white ..) ndsize(0.02 ..) ///
+	name(ServicesShare_1950, replace)
+	
+spmap employment_share_services using "nutscoord.dta" if year == 1960, id(_ID) fcolor(Oranges) legstyle(2) ///
+    osize(0.02 ..) ocolor(white ..) ///
+    clmethod(custom) clbreaks(0.28 0.32 0.36 0.40 0.44 0.52) ///
+    legend(pos(2) size(small) rowgap(1.5) ///
+    label(6 ">44%") label(5 "40-44%") label(4 "36-40%") label(3 "32-36%") ///
+    label(2 "<32%") label(1 "No Data")) ///
+    ndfcolor(gray) ndocolor(white ..) ndsize(0.02 ..) ///
+	name(ServicesShare_1960, replace)
+	
+	spmap employment_share_services using "nutscoord.dta" if year == 1970, id(_ID) fcolor(Oranges) legstyle(2) ///
+    osize(0.02 ..) ocolor(white ..) ///
+    clmethod(custom) clbreaks(0.32 0.36 0.40 0.44 0.56 0.61) ///
+    legend(pos(2) size(small) rowgap(1.5) ///
+	label(6 ">56%") label(5 "44-56%") label(4 "40-44%") label(3 "36-40%") ///
+    label(2 "<36%") label(1 "No Data")) ///
+    ndfcolor(gray) ndocolor(white ..) ndsize(0.02 ..) ///
+	name(ServicesShare_1970, replace)
+	
+graph combine Agricultureshare_1950 Agricultureshare_1960 Agricultureshare_1970 ///
+              IndustryShare_1950 IndustryShare_1960 IndustryShare_1970 ///
+              ServicesShare_1950 ServicesShare_1960 ServicesShare_1970, ///
+    graphregion(color(white)) ///
+ 	title("Regional Employment Share in Denmark", margin(bottom)) ///
+    note(Source: Rosés-Wolf (2020), size(vsmall) position(5)) ///
+    scheme(s2mono) ///
+    col(3) row(3) ///
+    scale(0.70)
+
+graph export RegionalEmploymentShare.png, replace width(2000)
+
+////////////////////// POPULATION DENSITY
+
+gen pop_dens = regional_population/regional_area
+	
+twoway ///
+    (line pop_dens year if region == "Southern Denmark", lcolor(purple)) ///
+    (line pop_dens year if region == "Sjælland", lcolor(navy)) ///
+    (line pop_dens year if region == "Hovedstaden", lcolor(sienna)) ///
+    (line pop_dens year if region == "Nordjylland", lcolor(orange)) ///
+    (line pop_dens year if region == "Midtjylland", lcolor(dkgreen)), ///
+    legend(order(1 "Southern Denmark" 2 "Sjælland" 3 "Hovedstaden" 4 "Nordjylland" 5 "Midtjylland") size(vsmall)) ///
+    title("Population Density by Region", margin(bottom)) ///
+	subtitle("1900-2015", margin(bottom)) ///
+    xlabel(1900(10)2015, labsize(small)) ///
+    ylabel(0(100)800, labsize(small)) ///
+    xtitle("Year", size(small)) ///
+    ytitle("Number of people per km²", size(small)) ///
+    note("Source: Rosés-Wolf (2020)", size(vsmall) position(7))
+
+graph export popilation_density.png, replace width(2000)
+
+////////////////////// Beta Convergence
+
+
+gen log_gdp_pc = log(regional_gdp_cap_1990)
+
+keep if year >= 1950
+
+xtset _ID year
+
+bysort _ID (year): gen growth_regional_gdp_cap_1990 = (regional_gdp_cap_1990[_n]-regional_gdp_cap_1990[_n-1]) / (regional_gdp_cap_1990[_n-1] * (year - year[_n-1]))
+
+bysort _ID: egen mean_growth_rate = mean(growth_regional_gdp_cap_1990)
+
+keep if year == 1950
+
+		///// Plot with labels - BETA convergence
+
+gen region_labels = region if region == "Southern Denmark" | region == "Sjælland" | region == "Hovedstaden" | region == "Nordjylland"| region == "Midtjylland"
+
+twoway (scatter mean_growth_rate log_gdp_pc, mlabel(region_labels) mcolor(purple) mlabcolor(purple)) ///
+ (lfit mean_growth_rate log_gdp_pc, lcolor(lavender)), ///
+title("Beta-Convergence", size(large)) ///
+subtitle("Regions in Denmark 1950-2015", size(medium)) ///
+xlabel(8.6(0.1)9.2, labsize(small)) ///
+ylabel(.018(.001).024, labsize(small)) ///
+ ytitle("Average growth rate since 1950", size(small)) ///
+xtitle("Initial GDP per capita (log)", size(small)) ///
+ legend(off) ///
+	note(Source: Rosés-Wolf (2020), size(vsmall) position(7))
+
+graph export Beta_Convergence.png, replace width(2000)
+
+
+////////////////////// Sigma Convergence by Jonathan
+
+keep if year >= 1950
+xtset _ID year
+
+///Population-weighted sigma convergence
+bysort year: egen total_pop_year = sum(regional_population)
+gen pop_weight = regional_population / total_pop_year
+
+bysort year: egen w_mean_gdp = sum(regional_gdp_cap_1990 * pop_weight)
+
+gen sq_dev = (regional_gdp_cap_1990 - w_mean_gdp)^2
+bysort year: egen w_var_gdp = sum(sq_dev * pop_weight)
+gen w_sd_gdp = sqrt(w_var_gdp)
+
+///Population-weighted coefficient of variation
+gen w_cv_gdp = w_sd_gdp / w_mean_gdp
+
+///Weighted sigma convergence plot
+twoway (connected w_cv_gdp year, lcolor(blue) mcolor(blue) msymbol(circle)) ///
+       (lfit w_cv_gdp year, lcolor(red)), ///
+       title("Population-weighted Sigma-convergence") subtitle("Denmark 1950 - 2015") ///
+       ytitle("Population-weighted CV of GDP per capita") xtitle("Year") ///
+       legend(label(1 "Annual weighted CV") label(2 "Linear trend"))
+
+/// Compare weighted and unweighted measures
+
+
+bysort year: egen mean_gdp = mean(regional_gdp_cap_1990)
+bysort year: egen sd_gdp = sd(regional_gdp_cap_1990)
+gen cv_gdp = sd_gdp / mean_gdp
+
+//// Final Plot
+
+twoway (connected w_cv_gdp year, lcolor(orange) mcolor(orange) msymbol(circle)) ///
+       (connected cv_gdp year, lcolor(purple) mcolor(purple) msymbol(diamond)) ///
+      title("Sigma-convergence: Weighted vs Unweighted") ///
+	  subtitle("Denmark 1900 - 2015") ///
+       ytitle("Coefficient of variation"), size(small) ///
+	   xtitle("Year"), size(small) ///
+       legend(label(1 "Population-weighted CV") label(2 "Unweighted CV")) ///
+	   note(Source: Rosés-Wolf (2020), size(vsmall) position(7))
+
+twoway (connected w_cv_gdp year, lcolor(orange) mcolor(orange) msymbol(circle) msize(vsmall)) ///
+       (connected cv_gdp year, lcolor(purple) mcolor(purple) msymbol(diamond) msize(vsmall)), ///
+       title("Sigma-convergence: Weighted vs Unweighted") ///
+       subtitle("Denmark 1900 - 2015") ///
+       ytitle("Coefficient of Variation") ///
+       xtitle("Year") ///
+       legend(order(1 "Population-weighted CV" 2 "Unweighted CV") ///
+              position(5) ring(0) size(vsmall)) ///
+       note("Source: Rosés-Wolf (2020)", size(vsmall) position(7))
+	   
+graph export Sigma_Convergence_Real.png, replace width(2000)
