@@ -3,6 +3,7 @@
 
 This repository contains a selection of data analysis projects completed between 2024 and 2025. Each project includes a brief description, completion date, and the corresponding code file.
 
+*This repository is intended as a professional portfolio showcasing previous academic and data analysis projects. Please do not submit or redistribute this work as your own.*
 
 
 ### Survival Chances in the RMS Titanic Wreck
