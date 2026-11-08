@@ -1,4 +1,5 @@
-# Portfolio: Previous Projects
+# Portfolio: Previous-Assignments
+
 
 This portfolio includes some of the work I have done over the last few years related to data analysis.
 
