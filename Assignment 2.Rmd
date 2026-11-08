@@ -1,0 +1,146 @@
+---
+title: "Assignment 2 - Valeria Angelino"
+output:
+  word_document: default
+  pdf_document: default
+date: "March 2025"
+---
+
+## Introduction
+
+The spirochete Borrelia (Borrelia burgdorferi sensu lato) is the causative agent of the disease Lyme borreliosis or Lyme disease in humans. It is a tick borne disease i.e. transmitted by the hard ticks of the genus Ixodes. In Sweden, Lyme borreliosis is not a mandatorily notifiable disease but some studies have been undertaken to estimate the incidence of the disease (Dahl et al, 2019). For example, Dahl et al (2019) share that Lyme borreliosis is one of the diseases with the highest surveillance priority in Sweden. In the county of Sörmland and in the southern parts of the county of Stockholm, the islands in the archipelago have large tick populations and therefore the risk of a Borrelia transmission is potentially larger in these islands. Similarly, according to Dahl et al (2019) the distribution in Lyme Disease cases in Sweden between 2010 and 2014 reflect the difference in climate, as ticks are only active at temperatures higher than 4 degrees celsius. These interesting statements led me to phrase the following research questions:
+
+RQ1: Does the prevalence of *Spirochete Borrelia* differ between the three archipielago islands of Askö, Torö and Öja?
+
+RQ2: Does the prevalence of *Spirochete Borrelia* depend on temperature and PH, and is there an interaction between these factors?
+
+To answer these questions, I used a dataset that collected samples from the three islands (Askö, Toro and Öja). I ran a one-way Anova and a two-way ANOVA test on data obtained from the Canvas page for the Statistical Analyses and Visualization in R:I course. The data was analyzed using RStudio, and with online resources as support.
+
+## Methodology
+
+The dataset used consists of data collected in a study where ticks were sampled at three different islands (Askö, Torö and Öja) in the Stockholm and Södermanland archipelago and at each island ticks were sampled and the prevalence of Borrelia was quantified as % of Borrelia infested ticks at each sample site. The data was analyzed with Rstudio, the code used for this paper has been included as an R file in a separate document.
+
+### Part 1
+
+To answer the first research question *Does the prevalence of Spirochete Borrelia differ between the three islands of Askö, Torö and Öja?* I decided to use a one-way ANOVA. A one-way ANOVA would allow to compare the average prevalence of *Spirochette Borrelia* across the three Swedish islands. The variables are described as follow:
+
+Independent (Categorical Factor) Variable - *Island*
+
+Dependent Variable (Continuous) Variable - *Prevalence of Spirochete Borrelia*
+
+Firstly, I need to make sure my variable *Island* is grouped into the three islands (Askö, Torö and Öja) properly, and as its own group. Once the Island grouping was done, the next step was to find if the data on the prevalence of *Spirochete Borrelia* met the requirements for an ANOVA: normal distribution and homoscedasticity. For this, I created a histogram (Figure 1) of the variable *Prevalence of Spirochete Borrelia.* Consequently, I created the boxplots of *Prevalence of Borrelia* by *Island* to get a visual on the data distribution across groups. Both the histogram and the box-plots are shown in Figure 1.
+
+To find more about the normality of the residuals and the homogeneity of the variance I ran a one-way ANOVA and got its diagnostic plots shown in Figure 2. Given that the data does not meet the requirements for a one-way ANOVA, I decided to do an Arcsine transformation. I chose an Arcsine transformation over a square root or log transformation given that my data consists of percentages. Therefore, I ran an arcsine transformation (also created a new histogram and box-plot), ran a one-way ANOVA with the transformed data and obtained the diagnostic plots to find if the transformation was fitting. The next step was to get the results of the one-way ANOVA with the Arcsine transformed data.
+
+Given that at least one Island is significantly different, the next step was to run a post-hoc test to find which Island is different, thus, I installed the *multcomp* package. I chose to do a Tukey HSD test to compare all three Islands to each other, in which the null hypothesis is that two groups being compared are equal, the results are shown in Table 2.
+
+### Part 2
+
+For the second research question *Does the prevalence of Spirochete Borrelia depend on temperature and PH, and is there an interaction between these factors?* I will be using a Factorial ANOVA. This will allow me to understand the difference in the prevalence of *Spirochete Borrelia* to different temperatures and PH levels, and the impact of the interaction between the two. The variables used are described as follow:
+
+Independent (Categorical Factor) Variables - *PH* and *Temperature*
+
+Dependent Variable (Continuous) Variable - *Prevalence of Spirochete Borrelia (*after Arcsine transformation)
+
+However, to run a two-way ANOVA, I need to turn PH and Temperature into categorical variables. Thus, I decided to group the PH levels into three groups: Acidic (0-6), Neutral (7), and Alkaline (8-14).
+
+For the variable *Temperature*, I started by finding the range of the values to see how I should group it. I realized that the temperature values ranged from 17 to 21 degrees. Given that the range was quite small (5 integers), I decided to change *Temperature* into its own category: 5 groups, from 17 to 21.
+
+To find if my grouping worked, and to get a better visualization of the data, I created two box-plots shown as Figure 8.
+
+Now that I had my two categorical variables with their respective groups, I could run the two-way ANOVA using the Arcsine transformed *Prevalence of Spirochete Borrelia*, for which the results are shown in Table 3. To evaluate my model, I obtained the diagnostic plots (Figure 6) of the factorial ANOVA.
+
+Similarly to Part 1, the last step was to run a post-hoc test to find which differences are statistically significant.
+
+## Results & Analysis
+
+### Part 1
+
+This section presents and analyses the results obtained through the methods described.
+
+![Figure 1. Histogram & Box-plot of the Prevalence of Spirochete Borrelia](figure%201.png){width="75%"}
+
+The histogram in Figure 1 shows that there is a right skeweness (or positive skewness) in the distribution of *Spirochete Borrelia*, meaning it is not normally distribute whilst the box-plots show that there is an unequal variability in the data among islands. There seems to be a similar dispersion between Askö and Töro, whereas Öja has less dispersed data as seen by the lengt of its box. The range for Askö is larger given its whiskers, even compared to Toro's, indicating wider distribution. Neither Island shows potential outliers.
+
+![Figure 2. Diagnostic Plots for ANOVA](Anova%20diagnostic%20plots.png){width="75%"}
+
+Figure 2 shows the diagnostic plots obtained after running a one-way ANOVA. The Residuals vs Fitted plot shows the values clustered across the horizontal line, however, there is a small bent by the end of the line, which could point to heteroscedasticity. Similarly, the red line on the Scale-Location plot starts to bend at a certain point, which could indicate an inconsistency in the variance of the residuals - pointing to heteroskedasicity. The Q-Q Plot shows that the points do not align fully with the diagonal line, specially at the beginning and at the end of the line indicating non-normal distribution. Overall, from Figure 1 and Figure 2 we can infer that the data does not meet the homoscedasticity requirement, nor the normal-distribution requirement for a one-way ANOVA.
+
+![Figure 3. Arcsine Transformation Histogram & Box-plots](new%20new%20new%20newq.png){width="75%"}
+
+![Figure 4. ANOVA Diagnostic Plots (Arcsine transformation)](new%20plots%20diagnostic.png){width="75%"}
+
+From Figure 3 and Figure 4, we can see that the distribution of *Spirochete Borrelia* follows a more normal distribution after an Arcsine transformation. The box-plots for the three islands are closer in size, pointing to a direction towards homoscedasticity. From the diagnostic plots in Figure 4, we can see that the Q-Q residuals show a less skewed distribution after an Arcsine transformation transformation. Despite this, some heteroscedasticity on the data remains, which should be taken in mind when interpreting the results of the one-way ANOVA.
+
+|           | Df  | Sum Sq | Mean sq | F-value | P-value  |
+|-----------|-----|--------|---------|---------|----------|
+| Island    | 2   | 3.979  | 1.9897  | 47.67   | 1.05e-14 |
+| Residuals | 87  | 3.632  | 0.0417  |         |          |
+
+: Table 1. Results of one-way ANOVA
+
+Table 1 above shows the results of the one-way ANOVA test. Firstly, the F-value (47.67) suggests that the differences between islands are larger than the variability within. More importantly, the P-value (0.0000000000000105) is lower than the 0.05 significance level suggesting that there are significant differences in the prevalence of *Spirochete Borrelia* between Islands.
+
+|             |          |            |         |         |
+|-------------|----------|------------|---------|---------|
+|             | Estimate | Std. Error | t-value | P-value |
+| Öja - Askö  | -0.49755 | 0.05275    | -9.432  | \<1e-04 |
+| Toro - Askö | -0.13344 | 0.05275    | -2.530  | 0.0349  |
+| Toro - Öja  | 0.36411  | 0.05275    | 6.902   | \<1e-04 |
+
+: Table 2. Results of Tukey HSD test
+
+Null hypothesis is that two groups are equal - alternative, is that the two groups are different. We can see that the P-value for the comparison of Öja and Askö is smaller than the 0.05 significance level - rejecting the null hypothesis - indicating that Öja and Askö are significantly different. Similarly, the value of the comparison between the islands of Torö and Askö is 0.03, also smaller than the 0.05 significance level. Overall, the results of the Tukey HSD test show that all Islands are significantly different in terms of the prevalence of *Spirochete Borrelia*.
+
+### Part 2
+
+![Figure 5. Box-plots Spirochete Borrelia to Temperature & PH level](Boxplots%20ph%20and%20temp.png){width="75%"}
+
+Figure 5 shows that the grouping of *Temperature* and *PH* worked.
+
+|                        | Df  | Sum Sq | Mean sq | F-value | P-value |
+|------------------------|-----|--------|---------|---------|---------|
+| Temperature            | 4   | 0.103  | 0.02574 | 0.303   | 0.875   |
+| PH_level               | 2   | 0.283  | 0.14171 | 1.668   | 0.196   |
+| Temperature : PH level | 8   | 0.852  | 0.10645 | 1.253   | 0.281   |
+| Residuals              | 75  | 6.373  | 0.08497 |         |         |
+
+: Table 3. Results of two-way ANOVA
+
+The P-value of *Temperature* is greater than the significance level of 0.05 as shown in Table 3, suggesting that temperature has no statistically significant effect level on the prevalence of *Spirochete Borrelia*. The F-value of Temperature is quite low, suggesting that the variance in the prevalence of *Spirochete Borrelia* explained by temperature is very small. Similarly, the P-value of *PH level* is higher than the significance level of 0.05, indicating that PH-level has no significant effect in the prevalence of *Spirochete Borrelia*. The P-value of the interaction between Temperature and PH is also greater than the 0.05 significance level. This means that the interaction between the two, does not have an influence in the prevalence of *Spirochete Borrelia*. Further, we can see that the SumSq value for the residuals is relatively high (6.373). This reflects the variation that is not explained by temperature, PH-level, or their interaction in the prevalence of *Spirochete Borrelia.*
+
+![Figure 6. Factorial ANOVA Diagnostic Plots](diagnostic%20plots%20fact%20anova.png){width="75%"}
+
+The diagnostic plots shown in Figure 6 show potential issues with the factorial ANOVA. Firstly, in the Residuals vs Fitted plot, the residuals appear randomly scattered, however, there is a slight funnel shape in the red line, suggesting some heteroscedasticity. Similarly, the residuals in the Scale-Location plot follow a downward trend, which could also point against homoscedasticity. In terms of normality, the Q-Q Residuals plot shows most point lie along the diagonal line, suggesting normality. Finally, the Residuals vs Leverage show point 24 as a potential influence on the model. In general, Figure 6 suggests that the normality assumption is satisfied, although there might be some heteroscedasticity.
+
+![Figure 6. Post-Hoc plot](post%20hoc%20fact%20anova.png){width="75%"}
+
+Figure 6 shows the results of the post-hoc test. The top left panel shows the main effect of temperature and its adjusted means - the black line shows how *Spirochete Borrelia* prevalence changes with temperature. The bottom right panel shows the main effect of the PH-level and its adjusted means. Both temperature and PH do not have a significant difference between the means of each group, suggesting that they do not have a strong effect on the prevalence of *Spirochete Borrelia.* Both the top right and bottom left panel show the interaction between temperature and PH but under a different scope.
+
+The bottom left panel is easier to interpret, as PH only has 3 groups: Acidic, Neutral and Alkaline, showing only three lines to follow. The bottom left panel shows the prevalence of *Spirochete Borrelia* by temperature separating it by PH-level. The lines diverge and cross along different temperatures, suggesting that temperature affects the prevalence of *Spirochete Borrelia* depending on PH-level. However, for example, the neutral line has the highest adjusted mean at both the lowest and highest temperature, which could suggest a U-shape interaction. The error bars are quite large, indicating high variability, suggesting non-significant differences. Overall, we can say that there is definitely an interaction between temperature and PH-level, however, the interaction is not strong enough to be reflected in the results of the factorial ANOVA.
+
+## Discussion
+
+The data shown in the Results & Analysis section show that there is a difference in the prevalence of *Spirochete Borrelia* between the islands of Askö, Torö and Öja. The information in Table 1 showed that there was a significant difference amongt the Islands. Further, Table 2 showed that these differences applied to the three Islands, suggesting that the prevalence of *Spirochete Borrelia* is different from island to island. Therefore, answering to RQ1: *Does the prevalence of Spirochete Borrelia differ between the three islands of Askö, Torö and Öja?* Yes, the prevalence of *Spirochete Borrelia* differ between the islands as proved by the results of this paper.
+
+This leads to RQ2: *Does the prevalence of Spirochete Borrelia depend on temperature and PH, and is there an interaction between these factors?* The results of the factorial ANOVA indicate that the prevalence of Spirochete Borrelia does not depend on temperature, nor PH-level. Figure 6 showed that there is still an interaction between temperature and PH, yet, this interaction did not seem to have an effect on the prevalence of *Spirochete Borrelia* as per the results of Table 3. However, it is important to highlight that the results of the factorial ANOVA should be taken with consideration as the assumption of homoscedasticity was not fully met. Regardless, the results indicated that that the differences in the prevalence of *Spirochete Borrelia* in the islands of Askö, Torö, and Öja, do not lie in their temperature nor PH-level. This is significant for any further research to find what factor on each island causes the high, or low prevalence of *Spirochete Borrelia* and its interaction with temperature and PH-level.
+
+Overall, we can say that the prevalence of *Spiurochete Borrelia* differs between the islands of Askö, Torö and Öja, however, which factors in these islands affect its prevalence has to be further researched.
+
+## References
+
+Banner, K., Greenwod, M. (2025). Statistics with R, Available online: [https://arc.lib.montana.edu/book/statistics-with-r-textbook/item/57#par(mfrow%3Dc(2%2C2))++1](https://arc.lib.montana.edu/book/statistics-with-r-textbook/item/57#par(mfrow%3Dc(2%2C2))++1){.uri} [Accessed 25th March 2025]
+
+Dahl, V., Wisell, K., Giske, C., Tegnell, A., Wallensten, A. (2019). Lyme neoroborreliosis epidemiology in Sweden 2010 to 2014: clinical microbiology laboratories are a better data source than the hospital discharge diagnosis register, *National Library of Medicine*, vol. 24, no. 20, Available online: <https://doi.org/10.2807/1560-7917.ES.2019.24.20.1800453> [Accessed 24th March 2025]
+
+Frost, J. (2021) Heterogeneity in Data and Samples for Statistics, Available online: <https://statisticsbyjim.com/basics/heterogeneity/> [Accessed 25th March 2025]
+
+Holland, S. (2025) Data Analysis in the Geosciences: Transformations of Proportions and Percentages, *stratigrafia.org*, Available online: <http://stratigrafia.org/8370/rtips/proportions.html> [Accessed 24th March 2025]
+
+Mangiafico, S. (2016). Transforming Data, Rcompanion.org, Available online: <https://rcompanion.org/handbook/I_12.html> [Accessed 27th March 2025]
+
+Salkind, N. (2017). Statistics for People Who (Think They) Hate Statistics, [e-book] London : Sage Publications, <https://us.sagepub.com/en-us/nam/statistics-for-people-who-think-they-hate-statistics-using-r/book261080>
+
+Stoetewey, A. (2020). Anova in R, *Stats and R*, Available online: <https://statsandr.com/blog/anova-in-r/#anova-in-r> [Accessed 29th March 2025]
+
+Ståhle, L., Wold, S. (1989). Analysis of Variance (ANOVA), *Chemometrics and Intelligent Laboratory Systems*, vol. 6, pp. 259 - 272, Available online: [DOI:[10.1016/0169-7439(89)80095-4](DOI:%5B10.1016/0169-7439(89)80095-4){.uri}](https://doi.org/10.1016/0169-7439%2889%2980095-4)
