@@ -2,7 +2,7 @@ library(tidyverse)
 library(ggplot2)
 library(dplyr)
 
-titanic_data <- read.csv("C:/Users/angel/OneDrive/Desktop/School/R Summer Course/Summer Course - Intro/titanic.csv")
+titanic_data <- read.csv("C:/Summer Course - Intro/titanic.csv")
 
 view(titanic_data)
 
