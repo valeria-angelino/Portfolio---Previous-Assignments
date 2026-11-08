@@ -21,7 +21,7 @@ This repository contains a selection of data analysis projects completed between
 
 **Date:** June 2025
 
-**Description:** Using a synthetic dataset, this project aims to answer four research questions regarding endometriosis using a statistical analyses: sample t-test, correlation, one-way ANOVA, chi-squared test.
+**Description:** Using a synthetic dataset, this project aims to answer four research questions regarding endometriosis using several statistical analyses, including a one-sample t-test, correlation analysis, one-way ANOVA, and a chi-squared test.
 
 **Code File:** Endometriosis_Code.R
 
@@ -33,7 +33,7 @@ This repository contains a selection of data analysis projects completed between
 
 **Date:** March 2025
 
-**Description:** Using STATA to uncover regional economic disparities in Denmark across time aiming to find when did the regional divergence began and wheter patterns show convergence.
+**Description:** Using Stata to examine regional economic disparities in Denmark over time, this project investigates when regional divergence began and whether subsequent patterns indicate convergence.
 
 **Code File:** Regional_Disparities_code.txt
 
