@@ -1,10 +1,7 @@
 # Portfolio: Previous-Assignments
 
 
-This portfolio includes some of the work I have done over the last few years related to data analysis.
-
-This guide includes the name of the project, the date it was completed, a brief description and the name of the code file respectively.
-
+This repository contains a selection of data analysis projects completed between 2024 and 2025. Each project includes a brief description, completion date, and the corresponding code file.
 
 
 
