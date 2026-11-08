@@ -9,12 +9,12 @@ ssc install egenmore, replace
 ssc install outreg2, replace
 
 
-cd "C:\Users\angel\OneDrive\Desktop\School\Thesis Stata"
+cd "C:\Thesis Stata"
 
-import excel "C:\Users\angel\OneDrive\Desktop\School\Thesis Stata\for_Stata.xlsx", sheet("A1") firstrow clear
+import excel "C:\for_Stata.xlsx", sheet("A1") firstrow clear
 save "A1.dta", replace
 
-import excel "C:\Users\angel\OneDrive\Desktop\School\Thesis Stata\for_Stata.xlsx", sheet("A2") firstrow clear
+import excel "C:\for_Stata.xlsx", sheet("A2") firstrow clear
 save "A2.dta", replace
 
 //////////////// Programs and Applications
