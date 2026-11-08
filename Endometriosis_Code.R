@@ -6,7 +6,7 @@ library(flextable)
 library(faraway)
 library(car)
 
-df <- read.csv ("C:/Users/angel/OneDrive/Desktop/School/R Course/Endometriosis Project/structured_endometriosis_data.csv")
+df <- read.csv ("C:/structured_endometriosis_data.csv")
 
 View(df)
 
