@@ -51,3 +51,13 @@ This repository contains a selection of data analysis projects completed between
 **Code File:** Bsc_Thesis_code.do
 
 
+
+
+
+### Job Application Dashboard
+
+**Date:** November 2025
+
+**Description:** Used PowerBI to create a simple yet informative dashboard about job applications for an unknown company. Added a slicer to be able to filter visualisations based on the job title/ job id. This file is only a PDF, so interactiions with the report are not possible.
+
+
